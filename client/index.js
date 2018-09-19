@@ -15,16 +15,24 @@
 *
 */
 
+var bgMusic = document.getElementById('background-music');
+bgMusic.muted = false;
+
+
 //make sure we understand context
 var ctx = document.getElementById('canvas').getContext('2d');
 var bulletsArray =[];
 var userStarShipPosition = [600 / 2 - 25, 550];
 var numOfAmmo = 45;
 var keys =[];
+var missileSound = new sound("./tempAssets/missile-shot.mp3");
+//var backgroundMusic = new sound("./tempAssets/alien-dream.wav");
 var userShip = new Image(45,45);
 var ammo = new Image(26,24);
+var spaceBackground = new Image(600,600);
 var ammoLoaded = false;
 var shipReadyForBattle = false;
+var backgroundReady = false;
 ammo.src = "./tempAssets/ammo.png";
 userShip.src = "./tempAssets/starships.png";
 userShip.onload =function(){
@@ -36,6 +44,12 @@ ammo.onload=function(){
 
   ammoLoaded = true;
 };
+spaceBackground.onload=function(){
+
+    backgroundReady = true;
+
+};
+
 
 //document.body.appendChild(userShip);
 
@@ -43,7 +57,10 @@ function start(){
 //in here we could start by drawing a press start animation
 //then when they press start we can load everything up that way game doesnt start
 //right away
+
+  //backgroundMusic.play();
   window.requestAnimationFrame(draw);
+
 }
 
 
@@ -52,6 +69,9 @@ function draw(){
 
   ctx.clearRect(0,0,600,600);
   //ctx.fillRect(userStarShipPosition[0],userStarShipPosition[1],25,25);
+  if(backgroundReady){
+    ctx.drawImage(spaceBackground,0,0);
+  }
 
   if(shipReadyForBattle){
     ctx.drawImage(userShip,userStarShipPosition[0],userStarShipPosition[1]);
@@ -106,6 +126,7 @@ document.addEventListener('keydown', function(event){
   //this works for tutorial but event emitters would be better for none  blocking so less jumpy drawing
     if(keys[90]){
       if(numOfAmmo > 0){
+          missileSound.play();
           bulletsArray.push({'ID': 1, "pos": [userStarShipPosition[0],userStarShipPosition[1] - 10]});
         }
           numOfAmmo -= 1;
@@ -128,3 +149,20 @@ document.addEventListener('keyup', function(event){
   keys[event.keyCode] = false;
 
 });
+
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
