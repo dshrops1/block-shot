@@ -35,12 +35,14 @@ userShip.onload =function(){
 ammo.onload=function(){
 
   ammoLoaded = true;
-}
+};
 
 //document.body.appendChild(userShip);
 
 function start(){
-
+//in here we could start by drawing a press start animation
+//then when they press start we can load everything up that way game doesnt start
+//right away
   window.requestAnimationFrame(draw);
 }
 
@@ -56,7 +58,7 @@ function draw(){
   }
 
   if(ammoLoaded){
-    
+
   bulletsArray.forEach(function(e){
 
     //ctx.fillRect(e.pos[0] + 20,e.pos[1],10,10);
@@ -66,6 +68,9 @@ function draw(){
     })
   }
 
+  //we are going to forEach draw our enimies array and do some logic
+  // they are going to slowly move down the screen left to right
+
 
   //make sure we understand this before writing article
   window.requestAnimationFrame(draw);
@@ -73,7 +78,7 @@ function draw(){
 
 start();
 
-
+//might benifit from having keylisteners call something like settimeout to redraw
 //understanding event listners
 document.addEventListener('keydown', function(event){
 
@@ -105,10 +110,11 @@ document.addEventListener('keydown', function(event){
         }
           numOfAmmo -= 1;
     }
-    if(keys[37]){
+    if(keys[37] && userStarShipPosition[0] > 0){
+
       userStarShipPosition[0] -= 20;
     }
-    if(keys[39]){
+    if(keys[39] && userStarShipPosition[0] < 600 - 45){
       userStarShipPosition[0] += 20;
     }
 

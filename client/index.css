@@ -1,6 +1,7 @@
 #canvas {
   border-radius: 5px;
   border-style: solid;
+  border-color: red;
   /* display: inline; */
 
 
@@ -8,10 +9,15 @@
 
 h1 {
   text-align: center;
+  color: red;
 }
 
 body {
   align-content: center;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   /* width: 100%; */
 
 }
