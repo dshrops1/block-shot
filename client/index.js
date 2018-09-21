@@ -53,18 +53,18 @@ spaceBackground.onload=function(){
 
 //document.body.appendChild(userShip);
 
-function start(){
+function init(){
 //in here we could start by drawing a press start animation
 //then when they press start we can load everything up that way game doesnt start
 //right away
 
   //backgroundMusic.play();
-  window.requestAnimationFrame(draw);
+  window.requestAnimationFrame(gameLoop);
 
 }
 
 
-function draw(){
+function gameLoop(){
 
 
   ctx.clearRect(0,0,600,600);
@@ -96,7 +96,7 @@ function draw(){
   window.requestAnimationFrame(draw);
 }
 
-start();
+init();
 
 //might benifit from having keylisteners call something like settimeout to redraw
 //understanding event listners
